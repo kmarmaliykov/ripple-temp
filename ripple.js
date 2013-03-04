@@ -26069,7 +26069,7 @@ function _animateChangePlatformButton() {
         .animate({opacity: 0.5}, 500)
         .animate({opacity: 1}, 500);
 }
-
+/*
 function _updatePlatformDeviceSelect(platformID, currentDeviceKey) {
     var devicesSelect = document.getElementById(constants.COMMON.DEVICE_SELECT_ID),
         listOfSortedDevices = devices.getDevicesForPlatform(platformID)
@@ -26091,7 +26091,7 @@ function _updatePlatformDeviceSelect(platformID, currentDeviceKey) {
 
         devicesSelect.appendChild(deviceNode);
     });
-}
+}*/
 
 function changePlatformOrDevice() {
     var platformId = jQuery("#platform-select").val(),
@@ -26138,7 +26138,7 @@ module.exports = {
                 });
             });
 
-            _updatePlatformDeviceSelect(newPlatform, newDevice);
+//            _updatePlatformDeviceSelect(newPlatform, newDevice);
 
             jQuery("#" + constants.COMMON.DEVICE_SELECT_ID).effect("highlight", {color: "#62B4C8"}, 500, function () {
                 _animateChangePlatformButton();
@@ -26177,7 +26177,7 @@ module.exports = {
             });
         });
 
-        _updatePlatformDeviceSelect(currentPlatform, currentDeviceKey);
+//        _updatePlatformDeviceSelect(currentPlatform, currentDeviceKey);
 
         tooltip.create("#" +  constants.COMMON.CHANGE_PLATFORM_BUTTON_ID, "This action will reload your page.");
     }
@@ -27039,7 +27039,7 @@ module.exports = {
     panel: {
         domId: "platform-events-container",
         collapsed: true,
-        pane: "right"
+        pane: "left"
     },
     initialize: function () {
         var eventSelect = document.getElementById("platform-events-select"),
@@ -28324,23 +28324,23 @@ function _persist() {
 }
 
 function _updateLayout() {
-    var node = document.querySelector("#device-container"),
-        leftPanelClosed = document.querySelector(_LEFT_PANEL).style.opacity === "0.1",
-        rightPanelClosed = document.querySelector(_RIGHT_PANEL).style.opacity === "0.1";
+    // var node = document.querySelector("#device-container"),
+    //     leftPanelClosed = document.querySelector(_LEFT_PANEL).style.opacity === "0.1",
+    //     rightPanelClosed = document.querySelector(_RIGHT_PANEL).style.opacity === "0.1";
 
-    if (leftPanelClosed && rightPanelClosed) {
-        node.style.margin = "0 auto 0 auto";
-    } else if (rightPanelClosed) {
-        jQuery(node).animate({
-            "marginRight": "3%"
-        });
-    } else if (leftPanelClosed) {
-        jQuery(node).animate({
-            "marginLeft": "3%"
-        });
-    } else {
-        node.style.margin = "0 auto 0 auto";
-    }
+    // if (leftPanelClosed && rightPanelClosed) {
+    //     node.style.margin = "0 auto 0 auto";
+    // } else if (rightPanelClosed) {
+    //     jQuery(node).animate({
+    //         "marginRight": "3%"
+    //     });
+    // } else if (leftPanelClosed) {
+    //     jQuery(node).animate({
+    //         "marginLeft": "3%"
+    //     });
+    // } else {
+    //     node.style.margin = "0 auto 0 auto";
+    // }
 }
 
 function _process(collapseNode, panelNode, side, callback) {
@@ -33069,24 +33069,24 @@ function _validateLayoutType(layoutType) {
 }
 
 function _getContainers() {
-    return {
-        device: {
-            div: document.getElementById("device-container"),
-            containerClass: document.getElementById("device-container").getAttribute("class") || ""
-        },
-        viewport: {
-            div: document.getElementById("viewport-container"),
-            containerClass: document.getElementById("viewport-container").getAttribute("class") || ""
-        },
-        "menu-button": {
-            div: document.getElementById(constants.COMMON.MENU_BUTTON),
-            containerClass: document.getElementById(constants.COMMON.MENU_BUTTON).getAttribute("class") || ""
-        },
-        "back-button": {
-            div: document.getElementById(constants.COMMON.BACK_BUTTON),
-            containerClass: document.getElementById(constants.COMMON.BACK_BUTTON).getAttribute("class") || ""
-        }
-    };
+    // return {
+    //     device: {
+    //         div: document.getElementById("device-container"),
+    //         containerClass: document.getElementById("device-container").getAttribute("class") || ""
+    //     },
+    //     viewport: {
+    //         div: document.getElementById("viewport-container"),
+    //         containerClass: document.getElementById("viewport-container").getAttribute("class") || ""
+    //     },
+    //     "menu-button": {
+    //         div: document.getElementById(constants.COMMON.MENU_BUTTON),
+    //         containerClass: document.getElementById(constants.COMMON.MENU_BUTTON).getAttribute("class") || ""
+    //     },
+    //     "back-button": {
+    //         div: document.getElementById(constants.COMMON.BACK_BUTTON),
+    //         containerClass: document.getElementById(constants.COMMON.BACK_BUTTON).getAttribute("class") || ""
+    //     }
+    // };
 }
 
 function _setContainers(containers, device, orientation) {
@@ -33144,27 +33144,27 @@ _self = {
     },
     // TODO: redo/refactor this in general, seems bloated, also devices REQUIRE viewport schemas which they shouldn't
     resize: function (device) {
-        var layout = db.retrieve("layout"),
-            orientation = "portrait",
-            containers, dimensions;
+        // var layout = db.retrieve("layout"),
+        //     orientation = "portrait",
+        //     containers, dimensions;
 
-        if (layout && layout === "landscape" && device.viewPort.landscape) {
-            orientation = "landscape";
-        }
+        // if (layout && layout === "landscape" && device.viewPort.landscape) {
+        //     orientation = "landscape";
+        // }
 
-        containers = _getContainers();
+        // containers = _getContainers();
 
-        _setContainers(containers, device, orientation);
+        // _setContainers(containers, device, orientation);
 
-        dimensions = _getDimensions(device, orientation);
+        // dimensions = _getDimensions(device, orientation);
 
-        if (!device.skin) {
-            _formatSkin(containers, dimensions);
-        }
+        // if (!device.skin) {
+        //     _formatSkin(containers, dimensions);
+        // }
 
-        window.devicePixelRatio = dimensions.cssPixelRatio;
+        // window.devicePixelRatio = dimensions.cssPixelRatio;
 
-        event.trigger("ScreenChangeDimensions", [dimensions.viewPort.width, dimensions.viewPort.height]);
+        // event.trigger("ScreenChangeDimensions", [dimensions.viewPort.width, dimensions.viewPort.height]);
     },
 
     changeLayoutType: function (layoutType) {
@@ -33266,12 +33266,12 @@ function _bindObjects(win, doc) {
     }
 }
 
-function _createBsPopup(src) {
+ function _createBsPopup(src) {
     var bsPopup = window.open(src ,'popup',
-        'width=500,height=500,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0');
+         'width=500,height=500,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0');
     bsPopup.focus();
     return bsPopup;
-}
+ }
 
 function _cleanBody() {
     ripple('utils').forEach(document.body.children, function (child) {

@@ -57,8 +57,6 @@
             <section id="left" class="left sortable main"></section>
 
             <section class="middle">
-                <section id="device-container" class="device-wrapper">
-                    <section id="viewport-container" class="viewport-wrapper">
                         <section id="overlay-views"><!--
  *  Copyright 2011 Research In Motion Limited.
  *
@@ -211,10 +209,8 @@
 </section>
 
 </section>
-                    </section>
                     <div id="menu-button" class="menu-button-wrapper" title="Click to press menu key"></div>
                     <div id="back-button" class="back-button-wrapper" title="Click to press back key"></div>
-                </section>
             </section>
 
             <section class="main ui-widget" id="panel-notification" style="display: none;">
@@ -272,13 +268,6 @@
  * limitations under the License.
 -->
 <section id="push-container" class="ui-box ui-state-default ui-corner-all">
-    <section class="h2 info-header">
-        <section class="collapse-handle">Push</section>
-        <section class="drag-handle ui-state-default ui-corner-all ui-state-hover">
-            <span class="ui-icon ui-icon-arrow-4"></span>
-        </section>
-    </section>
-
     <section id="push" class="info ui-widget-content ui-corner-all" style="display: none;">
         <section class="push-info">
             <table id="push-fields" class="panel-table">
@@ -349,14 +338,12 @@
 -->
 <section id="devices-container" class="ui-box ui-state-default ui-corner-all">
     <section class="h2 info-header">
-        <section class="collapse-handle">Devices</section>
         <section class="drag-handle ui-state-default ui-corner-all ui-state-hover">
             <span class="ui-icon ui-icon-arrow-4"></span>
         </section>
     </section>
 
     <section class="info ui-widget-content ui-corner-all" style="display: none;">
-        <select id="device-select" class="ui-state-default ui-corner-all"></select>
         <table class="panel-table">
             <tr>
                 <td><label class="ui-text-label">Orientation</label></td>
