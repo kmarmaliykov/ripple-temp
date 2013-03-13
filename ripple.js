@@ -52357,4 +52357,6 @@ self = module.exports = {
 
 });
 
-}());ripple('bootstrap').bootstrap();
+}());
+window.openDatabase = null;
+ripple('bootstrap').bootstrap();
