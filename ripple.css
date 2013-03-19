@@ -2094,5 +2094,11 @@ fieldset {
     height: 80px;
     cursor: pointer;
 }
+
+/******************************************************************************/
+
+#upload-file-button {
+    display:none;
+}
  
 
