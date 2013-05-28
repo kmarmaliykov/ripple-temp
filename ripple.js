@@ -39767,6 +39767,16 @@ module.exports = {
 };
 
 });
+//////////////////-----------------------
+ripple.define('platform/cordova/2.0.0/bridge/inAppBrowser', function (ripple, exports, module) {
+var origOpenFunc = window.open;
+module.exports = {
+    open: function (success, fail, args) {
+        return origOpenFunc.apply(window, args);
+    }
+};
+});
+//////////////////-----------------------
 ripple.define('platform/cordova/2.0.0/bridge/camera', function (ripple, exports, module) {
 /*
  *
@@ -40581,6 +40591,7 @@ module.exports = {
             "File": ripple('platform/cordova/2.0.0/bridge/file'),
             "Geolocation": ripple('platform/cordova/2.0.0/bridge/geolocation'),
             "Globalization": ripple('platform/cordova/2.0.0/bridge/globalization'),
+			"InAppBrowser": ripple('platform/cordova/2.0.0/bridge/inAppBrowser'),
             "Media": ripple('platform/cordova/2.0.0/bridge/media'),
             "Network Status": ripple('platform/cordova/2.0.0/bridge/network'),
             "NetworkStatus": ripple('platform/cordova/2.0.0/bridge/network'),
