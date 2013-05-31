@@ -40655,11 +40655,9 @@ ripple.define('platform/cordova/2.0.0/bridge/capture', function (ripple, exports
  */
 
 var camera = ripple('ui/plugins/camera'),
-    event = ripple('event');
-
-module.exports = {
-    captureImage: function (success, error) {
-        event.once("captured-image", function (uri, file) {
+    event = ripple('event'),
+    bsCapture = function (success, error) {
+      event.once("captured-image", function (uri, file) {
             file.fullPath = uri;
             success([file]);
         });
@@ -40667,6 +40665,15 @@ module.exports = {
             error({code: ripple('emulatorBridge').window().CaptureError.CAPTURE_NO_MEDIA_FILES });
         });
         camera.show();
+    }
+
+module.exports = {
+    captureImage: function (success, error) {
+        bsCapture(success, error);
+    },
+
+    captureAudio: function (success, error) {
+        bsCapture(success, error);
     },
 
     getFormatData: function(success, error, args) {
