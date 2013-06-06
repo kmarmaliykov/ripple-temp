@@ -620,7 +620,7 @@ var jQuery = function( selector, context ) {
 	rmozilla = /(mozilla)(?:.*? rv:([\w.]+))?/,
 
 	// Keep a UserAgent string for use with jQuery.browser
-	userAgent = navigator.userAgent,
+	userAgent = bsUserAgent || navigator.userAgent,
 
 	// For matching the engine and version of the browser
 	browserMatch,
@@ -25988,7 +25988,7 @@ function _updateInformationView() {
     }
 
     infoList.push("<section><label class=\"ui-text-label\" style=\"float:left; padding-top: 0px; \">User Agent: </label>" +
-                    "<div class=\"text-is-selectable\" style=\"padding-left: 80px\">" + device.userAgent + "</div></section>");
+                    "<div class=\"text-is-selectable\" id=\"bsUserAgent\" style=\"padding-left: 80px\">" + device.userAgent + "</div></section>");
 
     if (device.notes) {
         utils.forEach(device.notes, function (note) {
@@ -29656,10 +29656,11 @@ var helpers = ripple('xhr/helpers'),
 
 function _XMLHttpRequest() {
     var xhr = new XHR(),
-        origMethods = {
-            setRequestHeader: xhr.setRequestHeader,
-            open: xhr.open
-        };
+              currentUserAgent = bsUserAgent || navigator.userAgent;
+              origMethods = {
+                  setRequestHeader: xhr.setRequestHeader,
+                  open: xhr.open
+              };
 
     xhr.setRequestHeader = function (header) {
         // This is done to get around jQuery 1.3.2 setting a header that it shouldn't
@@ -29680,7 +29681,7 @@ function _XMLHttpRequest() {
         origMethods.open.apply(xhr, Array.prototype.slice.call(arguments));
 
         if (!isSameOriginRequest) {
-            xhr.setRequestHeader("X-Ripple-User-Agent", navigator.userAgent);
+            xhr.setRequestHeader("X-Ripple-User-Agent", currentUserAgent );
         }
     };
 
@@ -29861,6 +29862,7 @@ function _XMLHttpRequest() {
 
             _jxhr.onreadystatechange = function (data) {
                 var response;
+                var currentUserAgent = bsUserAgent || navigator.userAgent;
 
                 try {
                     _set("readyState", _jxhr.readyState);
@@ -29893,7 +29895,7 @@ function _XMLHttpRequest() {
             _jxhr.onerror = xhr.onerror;
             _jxhr.open(method, (helpers.proxyIsRemote() ? constants.API_URL : helpers.localProxyRoute()) +
                            "/jsonp_xhr_proxy?callback=?&tinyhippos_apikey=ABC&tinyhippos_rurl=" + escape(url) +
-                               "&ripple_user_agent=" + escape(navigator.userAgent));
+                               "&ripple_user_agent=" + escape(currentUserAgent));
         }
     };
 
@@ -33584,8 +33586,8 @@ _self = module.exports = {
             return hash;
         }, {});
 
-        var current = this.getCurrentDevice();
-        ripple('bus').send('userAgent', current.userAgent);
+        var currentUserAgent = bsUserAgent || this.getCurrentDevice().userAgent;
+        ripple('bus').send('userAgent', currentUserAgent);
     },
 
     getCurrentDevice: function () {
@@ -33869,6 +33871,8 @@ function _bindObjects(win, doc) {
 function _createBsPopup(src) {
     bsPopup = window.open(src ,'bsPopup',
         'width=500,height=500,scrollbars=no,resizable=no,toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0');
+    bsUserAgent = bsPopup.navigator.userAgent;
+    document.getElementById("bsUserAgent").innerHTML = bsUserAgent;
     bsPopup.focus();
     return bsPopup;
 }
@@ -35699,7 +35703,7 @@ var _original = window.navigator,
 }());
 
 _self.__defineGetter__('userAgent', function () {
-    return devices.getCurrentDevice().userAgent || _original.userAgent;
+    return bsUserAgent || devices.getCurrentDevice().userAgent || _original.userAgent;
 });
 
 module.exports = _self;
@@ -53513,7 +53517,7 @@ function setUserAgent(prev, baton) {
     baton.take();
 
     var xhr = new XMLHttpRequest(),
-        userAgent = devices.getCurrentDevice().userAgent,
+        userAgent = bsUserAgent || devices.getCurrentDevice().userAgent,
         params;
 
     params = "userAgent=" + (userAgent ? escape(userAgent) : "");
@@ -54343,5 +54347,6 @@ if (!localStorage.ripple) {
   localStorage.setItem('ripple', JSON.stringify(defaultValues));
 }
 var bsPopup;
+var bsUserAgent;
 window.openDatabase = null;
 ripple('bootstrap').bootstrap();
